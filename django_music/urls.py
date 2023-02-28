@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('__debug__/', include('debug_toolbar.urls')),
     # making a url for the homepage:
-    path('', views.list_albums, name="home")
+    path('', views.list_albums, name="home"),
     # ^^^where user visits, what view is called, name used within the app to refer to this url
+    path('albums/new', views.add_album, name="add_album")
 ]
