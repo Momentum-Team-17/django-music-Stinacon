@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Album
 from .forms import AlbumForm
 # Create your views here.
@@ -14,10 +14,26 @@ def list_albums(request):
 
 def add_album(request):
     if request.method == 'POST':
-        album_form = AlbumForm(request.POST)
-        if album_form.is_valid():
-            album_form.save()
+        new_album = AlbumForm(request.POST)
+        if new_album.is_valid():
+            new_album.save()
             # creating a new instance of Album
             return redirect('home')
     form = AlbumForm()
     return render(request, 'albums/add_album.html', {'form': form})
+
+
+def album_info(request, pk):
+    album = get_object_or_404(Album, pk=pk)
+    return render(request, 'albums/album_info.html', {'album': album})
+
+
+def edit_album(request, pk):
+    album = get_object_or_404(Album, pk=pk)
+    if request.method == 'POST':
+        album_form = AlbumForm(request.POST, instance=album)
+        if album_form.is_valid():
+            album_form.save()
+            return redirect('home')
+    form = AlbumForm(instance=album)
+    return render(request, 'albums/edit_album.html', {'form': form})
