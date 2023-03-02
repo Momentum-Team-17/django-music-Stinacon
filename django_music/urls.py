@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 # making a view for homepage url:
 from albums import views
+# from django.conf import settings
+# from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +30,4 @@ urlpatterns = [
     path('albums/<int:pk>', views.album_info, name="album_info"),
     path('albums/<int:pk>/edit', views.edit_album, name="edit_album"),
     path('albums/<int:pk>/delete', views.delete_album, name='delete_album'),
-]
+] 
